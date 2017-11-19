@@ -5,7 +5,7 @@
  * Copyright 2015-2017 Interest IT / Bert Loedeman and other contributors
  * Released under the MIT license
  *
- * Date: 2017-09-01T16:00:00.000Z
+ * Date: 2017-11-19T17:00:00.000Z
  */
 ;(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -23,7 +23,7 @@ var AutoMapperJs;
     /**
      * AutoMapper helper functions
      */
-    var AutoMapperHelper = (function () {
+    var AutoMapperHelper = /** @class */ (function () {
         function AutoMapperHelper() {
         }
         AutoMapperHelper.getClassName = function (classType) {
@@ -255,7 +255,7 @@ var AutoMapperJs;
     /**
      * AutoMapper configuration validator.
      */
-    var AutoMapperValidator = (function () {
+    var AutoMapperValidator = /** @class */ (function () {
         function AutoMapperValidator() {
         }
         /**
@@ -427,7 +427,7 @@ var AutoMapperJs;
      * AutoMapper implementation, for both creating maps and performing maps. Comparable usage and functionality to the original
      * .NET AutoMapper library is the pursuit of this implementation.
      */
-    var AutoMapperBase = (function () {
+    var AutoMapperBase = /** @class */ (function () {
         function AutoMapperBase() {
         }
         AutoMapperBase.prototype.getMapping = function (mappings, sourceKey, destinationKey) {
@@ -482,13 +482,6 @@ var AutoMapperJs;
                 if (!sourceObject.hasOwnProperty(sourcePropertyName)) {
                     continue;
                 }
-                if (destinationObject[sourcePropertyName]) {
-                    // ... but, if the destination property already exists, don't map again (probably a mapFrom situation).
-                    continue;
-                }
-                // if (sourceProperties.indexOf(sourcePropertyName) >= 0) {
-                //     continue;
-                // }
                 atLeastOnePropertyMapped = true;
                 propertyFunction(sourcePropertyName);
             }
@@ -685,7 +678,7 @@ var AutoMapperJs;
     /**
      * AsyncAutoMapper implementation, for asynchronous mapping support when using AutoMapper.
      */
-    var AsyncAutoMapper = (function (_super) {
+    var AsyncAutoMapper = /** @class */ (function (_super) {
         __extends(AsyncAutoMapper, _super);
         function AsyncAutoMapper() {
             var _this = _super.call(this) || this;
@@ -911,9 +904,9 @@ var AutoMapperJs;
                     return;
             }
         };
+        AsyncAutoMapper.asyncInstance = new AsyncAutoMapper();
         return AsyncAutoMapper;
     }(AutoMapperJs.AutoMapperBase));
-    AsyncAutoMapper.asyncInstance = new AsyncAutoMapper();
     AutoMapperJs.AsyncAutoMapper = AsyncAutoMapper;
 })(AutoMapperJs || (AutoMapperJs = {}));
 
@@ -939,7 +932,7 @@ var __extends = (this && this.__extends) || (function () {
 var AutoMapperJs;
 (function (AutoMapperJs) {
     'use strict';
-    var AutoMapper = (function (_super) {
+    var AutoMapper = /** @class */ (function (_super) {
         __extends(AutoMapper, _super);
         /**
          * This class is intended to be a Singleton. Preferrably use getInstance()
@@ -1147,6 +1140,9 @@ var AutoMapperJs;
             var _a;
         };
         AutoMapper.prototype.mapInternal = function (mapping, sourceObject) {
+            if (sourceObject === null || typeof sourceObject === 'undefined') {
+                return sourceObject;
+            }
             if (mapping.async) {
                 throw new Error('Impossible to use asynchronous mapping using automapper.map(); use automapper.mapAsync() instead.');
             }
@@ -1539,9 +1535,9 @@ var AutoMapperJs;
             }
             return null;
         };
+        AutoMapper._instance = new AutoMapper();
         return AutoMapper;
     }(AutoMapperJs.AutoMapperBase));
-    AutoMapper._instance = new AutoMapper();
     AutoMapperJs.AutoMapper = AutoMapper;
 })(AutoMapperJs || (AutoMapperJs = {}));
 // Add AutoMapper to the application's global scope. Of course, you could still use Core.AutoMapper.getInstance() as well.
@@ -1560,7 +1556,7 @@ var AutoMapperJs;
     /**
      * Converts source type to destination type instead of normal member mapping
      */
-    var Profile = (function () {
+    var Profile = /** @class */ (function () {
         function Profile() {
         }
         /**
@@ -1601,7 +1597,7 @@ var AutoMapperJs;
     /**
      * Converts source type to destination type instead of normal member mapping
      */
-    var TypeConverter = (function () {
+    var TypeConverter = /** @class */ (function () {
         function TypeConverter() {
         }
         /**
@@ -1625,7 +1621,7 @@ var AutoMapperJs;
 var AutoMapperJs;
 (function (AutoMapperJs) {
     'use strict';
-    var CamelCaseNamingConvention = (function () {
+    var CamelCaseNamingConvention = /** @class */ (function () {
         function CamelCaseNamingConvention() {
             this.splittingExpression = /(^[a-z]+(?=$|[A-Z]{1}[a-z0-9]+)|[A-Z]?[a-z0-9]+)/;
             this.separatorCharacter = '';
@@ -1656,7 +1652,7 @@ var AutoMapperJs;
 var AutoMapperJs;
 (function (AutoMapperJs) {
     'use strict';
-    var PascalCaseNamingConvention = (function () {
+    var PascalCaseNamingConvention = /** @class */ (function () {
         function PascalCaseNamingConvention() {
             this.splittingExpression = /(^[A-Z]+(?=$|[A-Z]{1}[a-z0-9]+)|[A-Z]?[a-z0-9]+)/;
             this.separatorCharacter = '';
